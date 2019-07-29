@@ -1,5 +1,5 @@
 """
-Django settings for esite project.
+Django base settings for esite project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/2.2/topics/settings/
@@ -11,16 +11,25 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 
+#> Root paths
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-
-# Application definition
-
+#> Application definition
+# A list of strings designating all applications that are enabled in this
+# Django installation.
+# See https://docs.djangoproject.com/en/2.2/ref/settings/#installed-apps
 INSTALLED_APPS = [
+    # Our own apps
     'esite.core',
     'esite.home',
 
+    # Third party apps
+    'corsheaders',
+    'django_filters',
+
+    # Django core apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -29,7 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+#> Middleware definition
+# In MIDDLEWARE, each middleware component is represented by a string: the full
+# Python path to the middleware factory’s class or function name.
+# See https://docs.djangoproject.com/en/2.2/ref/settings/#middleware
 MIDDLEWARE = [
+    # Third party middleware
+    'corsheaders.middleware.CorsMiddleware',
+
+    # Django core middleware
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -39,16 +56,26 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# If True, the whitelist will not be used and all origins will be accepted. Defaults to False.
+#> CORS origin
+# If True, the whitelist will not be used and all origins will be accepted.
 # See https://pypi.org/project/django-cors-headers/
 CORS_ORIGIN_ALLOW_ALL = True
 
+#> URL configuration
+# A string representing the full Python import path to your root URLconf.
+# See https://docs.djangoproject.com/en/2.2/ref/settings/#root-urlconf
 ROOT_URLCONF = 'esite.urls'
 
+#> Template definition
+# A list containing the settings for all template engines to be used with
+# Django.
+# See https://docs.djangoproject.com/en/2.2/ref/settings/#templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(PROJECT_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -61,12 +88,15 @@ TEMPLATES = [
     },
 ]
 
+#> WSGI application path
+# The full Python path of the WSGI application object that Django’s built-in
+# servers (e.g. runserver) will use.
+# See https://docs.djangoproject.com/en/2.2/ref/settings/#wsgi-application
 WSGI_APPLICATION = 'esite.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
+#> Database definition
+# See https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -74,10 +104,9 @@ DATABASES = {
     }
 }
 
-
-# Password validation
+#> Password validation
+# The list of validators that are used to check the strength of passwords, see
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -93,10 +122,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/2.2/topics/i18n/
-
+#> Internationalization
+# See https://docs.djangoproject.com/en/2.2/topics/i18n/
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Europe/Vienna'
