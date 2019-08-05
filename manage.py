@@ -4,6 +4,7 @@ import os
 import sys
 
 
+# run!
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'esite.settings')
     try:
