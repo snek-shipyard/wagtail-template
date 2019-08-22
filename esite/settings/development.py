@@ -31,5 +31,8 @@ ALLOWED_HOSTS = '*'
 
 #> Email backend
 # The backend to use for sending emails.
-# See https://docs.djangoproject.com/en/2.2/ref/settings/#email-backend
+# See https://docs.djangoproject.com/en/2.2/topics/email/#console-backend
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# SPDX-License-Identifier: (EUPL-1.2)
+# Copyright © 2019 Werbeagentur Christian Aichner

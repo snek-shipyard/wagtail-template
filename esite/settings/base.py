@@ -169,3 +169,6 @@ STATIC_URL = '/static/'
 # See https://docs.djangoproject.com/en/2.2/ref/settings/#media-root
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# SPDX-License-Identifier: (EUPL-1.2)
+# Copyright © 2019 Werbeagentur Christian Aichner
