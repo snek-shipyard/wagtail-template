@@ -68,7 +68,8 @@ docker-compose logs -f
 
 ## [](#setup-with-python-virtual-environment)Setup with Python Virtual Environment
 
-You can start a Django project from this template without setting up Docker and simply use a virtual environment, which is the [recommended installation approach](https://docs.python.org/3/library/venv.html) for all Python projects itself.
+You can start a Django project from this template without setting up Docker and simply use a virtual environment,
+which is the [recommended installation approach](https://docs.python.org/3/library/venv.html) for all Python projects itself.
 
 #### Dependencies
 
@@ -83,11 +84,14 @@ With [PIP](https://github.com/pypa/pip) installed, run:
     python --version
     python -m pip --version
 
-Confirm that this is showing a compatible version of Python 3.x. If not, and you have multiple versions of Python installed on your system, you may need to specify the appropriate version when creating the venv:
+Confirm that this is showing a compatible version of Python 3.x. If not, and you have multiple versions
+of Python installed on your system, you may need to specify the appropriate version when creating the venv:
 
-python3 -m venv /path/to/new/virtual/environment
+    python3 -m venv /path/to/new/virtual/environment
 
-Once a virtual environment has been created, it can be “activated” using a script in the virtual environment’s binary directory. The invocation of the script is platform-specific (<venv> must be replaced by the path of the directory containing the virtual environment):
+Once a virtual environment has been created, it can be “activated” using a script in the virtual environment’s
+binary directory. The invocation of the script is platform-specific (<venv> must be replaced by the path of the
+directory containing the virtual environment):
 
 | Platform | Shell      | Command to activate virtual environment |
 | :------- | :--------- | :-------------------------------------- |
@@ -138,8 +142,6 @@ Get updates on our development and chat/talk with the project maintainers and co
 - Follow us on [Facebook](https://www.facebook.com/werbeagentur.aichner).
 
 ## [](#versioning)Versioning
-
-![GitHub package.json version](https://img.shields.io/github/package-json/v/aichner/Django-Template)
 
 For transparency into our release cycle and in striving to maintain backward compatibility, this repository is
 maintained under [the Semantic Versioning guidelines](https://semver.org/). Sometimes we screw up, but we adhere to
