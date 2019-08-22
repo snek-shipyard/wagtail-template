@@ -24,6 +24,11 @@ DEBUG = True
 # See https://docs.djangoproject.com/en/2.2/ref/settings/#secret-key
 SECRET_KEY = 'ct*z11t*ns876z)!f5f3h1byn7pp1ma5i!9*oo!=dmtmnrvzcn'
 
+#> Allowed hosts
+# Accept all hostnames, since we don't know in advance.
+# See https://docs.djangoproject.com/en/2.2/ref/settings/#allowed-hosts
+ALLOWED_HOSTS = '*'
+
 #> Email backend
 # The backend to use for sending emails.
 # See https://docs.djangoproject.com/en/2.2/ref/settings/#email-backend
