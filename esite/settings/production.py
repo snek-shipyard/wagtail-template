@@ -14,6 +14,12 @@ https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 from .base import *
 
 
+#> Debug switch
+# SECURITY WARNING: don't run with debug turned on in production!
+# IMPORTANT: Specified in the environment or set to default (off).
+# See https://docs.djangoproject.com/en/2.2/ref/settings/#debug
+DEBUG = os.getenv('DJANGO_DEBUG', 'off') == 'on'
+
 #> Allowed hosts
 # Accept all hostnames, since we don't know in advance
 # which hostname will be used for any given Docker instance.
