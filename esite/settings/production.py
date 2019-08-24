@@ -11,6 +11,9 @@ This development settings are unsuitable for production, see
 https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 """
 
+import random
+import string
+
 from .base import *
 
 
@@ -19,6 +22,18 @@ from .base import *
 # IMPORTANT: Specified in the environment or set to default (off).
 # See https://docs.djangoproject.com/en/2.2/ref/settings/#debug
 DEBUG = os.getenv('DJANGO_DEBUG', 'off') == 'on'
+
+#> Secret key
+# SECURITY WARNING: keep the secret key used in production secret!
+# IMPORTANT: Specified in the environment or generate an ephemeral key.
+# See https://docs.djangoproject.com/en/2.2/ref/settings/#secret-key
+if 'DJANGO_SECRET_KEY' in os.environ:
+    SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+else:
+    # Use if/else rather than a default value to avoid calculating this,
+    # if we don't need it.
+    print("WARNING: DJANGO_SECRET_KEY not found in os.environ. Generating ephemeral SECRET_KEY.")
+    SECRET_KEY = ''.join([random.SystemRandom().choice(string.printable) for i in range(50)])
 
 #> Allowed hosts
 # Accept all hostnames, since we don't know in advance
