@@ -14,6 +14,8 @@ https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 import random
 import string
 
+import dj_database_url
+
 from .base import *
 
 
@@ -52,6 +54,12 @@ EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
 EMAIL_PORT = int(os.getenv('EMAIL_HOST', '587'))
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
+
+#> Database definition
+# See https://pypi.org/project/dj-database-url/
+# See https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 # SPDX-License-Identifier: (EUPL-1.2)
 # Copyright © 2019 Werbeagentur Christian Aichner
