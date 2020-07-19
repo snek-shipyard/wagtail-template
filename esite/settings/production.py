@@ -25,6 +25,12 @@ from .base import *
 # See https://docs.djangoproject.com/en/stable/ref/settings/#debug
 DEBUG = env.get("DJANGO_DEBUG", "off") == "on"
 
+# This is used by Wagtail's email notifications for constructing absolute
+# URLs. Please set to the domain that users will access the admin site.
+if "PRIMARY_HOST" in env:
+    BASE_URL = "https://{}".format(env["PRIMARY_HOST"])
+
+#> Secret Key
 # SECURITY WARNING: keep the secret key used in production secret!
 # IMPORTANT: Specified in the environment or generate an ephemeral key.
 # See https://docs.djangoproject.com/en/stable/ref/settings/#secret-key
@@ -95,6 +101,15 @@ if "DJANGO_SERVER_EMAIL" in env:
 # See https://docs.djangoproject.com/en/stable/ref/settings/#databases
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES["default"].update(db_from_env)
+
+
+#> Recaptcha
+# These settings are required for the captcha challange to work.
+# https://github.com/springload/wagtail-django-recaptcha
+if "RECAPTCHA_PUBLIC_KEY" in env and "RECAPTCHA_PRIVATE_KEY" in env:
+    NOCAPTCHA = True
+    RECAPTCHA_PUBLIC_KEY = env["RECAPTCHA_PUBLIC_KEY"]
+    RECAPTCHA_PRIVATE_KEY = env["RECAPTCHA_PRIVATE_KEY"]
 
 # SPDX-License-Identifier: (EUPL-1.2)
 # Copyright © 2019 Werbeagentur Christian Aichner
