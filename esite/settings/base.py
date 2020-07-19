@@ -33,9 +33,31 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sitemaps",
+    # Wagtail core apps
+    "wagtail.api.v2",
+    "wagtail.contrib.modeladmin",
+    "wagtail.contrib.settings",
+    "wagtail.contrib.search_promotions",
+    "wagtail.contrib.forms",
+    "wagtail.contrib.redirects",
+    "wagtail.embeds",
+    "wagtail.sites",
+    "wagtail.users",
+    "wagtail.snippets",
+    "wagtail.documents",
+    "wagtail.images",
+    "wagtail.search",
+    "wagtail.admin",
+    "wagtail.core",
     # Third party apps
     "corsheaders",
     "django_filters",
+    "modelcluster",
+    "taggit",
+    "captcha",
+    "generic_chooser",
+    "wagtailcaptcha",
+    "wagtailfontawesome",
 ]
 
 #> Middleware Definition
@@ -52,6 +74,9 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # Wagtail core middleware
+    "wagtail.core.middleware.SiteMiddleware",
+    "wagtail.contrib.redirects.middleware.RedirectMiddleware",
     # Third party middleware
     "corsheaders.middleware.CorsMiddleware",
 ]
@@ -164,5 +189,70 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/stable/ref/settings/#media-url
 MEDIA_URL = "/media/"
 
+#> Wagtail Settings
+# This name is displayed in the Wagtail admin.
+WAGTAIL_SITE_NAME = "esite"
+
+#> Search Configuration
+# https://docs.wagtail.io/en/latest/topics/search/backends.html
+WAGTAILSEARCH_BACKENDS = {
+    "default": {"BACKEND": "wagtail.search.backends.db", "INDEX": "esite",},
+}
+
+# Custom document model
+# https://docs.wagtail.io/en/stable/advanced_topics/documents/custom_document_model.html
+#WAGTAILDOCS_DOCUMENT_MODEL = "documents.CustomDocument"
+#PASSWORD_REQUIRED_TEMPLATE = "patterns/pages/wagtail/password_required.html"
+
+# Custom image model
+# https://docs.wagtail.io/en/stable/advanced_topics/images/custom_image_model.html
+#WAGTAILIMAGES_IMAGE_MODEL = "images.CustomImage"
+#WAGTAILIMAGES_FEATURE_DETECTION_ENABLED = False
+
+# Rich text settings to remove unneeded features
+# We normally don't want editors to use the images
+# in the rich text editor, for example.
+# They should use the image stream block instead
+WAGTAILADMIN_RICH_TEXT_EDITORS = {
+    "default": {
+        "WIDGET": "wagtail.admin.rich_text.DraftailRichTextArea",
+        "OPTIONS": {
+            "features": [
+                "bold",
+                "italic",
+                "underline",
+                "strikethrough",
+                "h1",
+                "h2",
+                "h3",
+                "h4",
+                "h5",
+                "h6",
+                "blockquote",
+                "ol",
+                "ul",
+                "hr",
+                "embed",
+                "link",
+                "superscript",
+                "subscript",
+                "document-link",
+                "image",
+                "code",
+            ]
+        },
+    },
+}
+
+# Default size of the pagination used on the front-end
+DEFAULT_PER_PAGE = 10
+
+#> Styleguide
+PATTERN_LIBRARY_ENABLED = "true"
+PATTERN_LIBRARY_TEMPLATE_DIR = "templates"
+
+#> System Checks
+# Wagtail forms not used so silence captcha warning
+SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
 # SPDX-License-Identifier: (EUPL-1.2)
 # Copyright © 2019 Werbeagentur Christian Aichner
