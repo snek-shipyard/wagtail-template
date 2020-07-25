@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     # Our own pages
     "esite.home",
     # Our own apps
+    "esite.bifrost",
     "esite.core",
     "esite.user",
     "esite.colorfield",
@@ -158,6 +159,9 @@ GRAPHQL_JWT = {
     "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
     "JWT_EXPIRATION_DELTA": timedelta(minutes=5),
     "JWT_REFRESH_EXPIRATION_DELTA": timedelta(days=7),
+}
+
+BIFROST_APPS = {
 }
 
 #> Password Validation
