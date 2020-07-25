@@ -13,13 +13,36 @@ from wagtail.snippets.models import register_snippet
 
 import uuid
 
+from esite.bifrost.models import (
+    GraphQLInt,
+    GraphQLBoolean,
+    GraphQLString,
+    GraphQLFloat,
+    GraphQLImage,
+    GraphQLDocument,
+    GraphQLSnippet,
+    GraphQLEmbed,
+    GraphQLStreamfield,
+    GraphQLForeignKey,
+    GraphQLPage,
+)
+from esite.bifrost.helpers import register_streamfield_block
+
 #> Sections
+@register_streamfield_block
 class _S_SmallBlock(blocks.StructBlock):
     charblock = blocks.CharBlock()
     textblock = blocks.TextBlock()
     emailblock = blocks.EmailBlock()
 
+    graphql_fields = [
+        GraphQLString("charblock"),
+        GraphQLString("textblock"),
+        GraphQLString("emailblock"),
+    ]
 
+
+@register_streamfield_block
 class _S_BigBlock(blocks.StructBlock):
     integerblock = blocks.IntegerBlock()
     floatblock = blocks.FloatBlock()
@@ -29,6 +52,17 @@ class _S_BigBlock(blocks.StructBlock):
     booleanblock = blocks.BooleanBlock()
     dateblock = blocks.DateBlock()
 
+    graphql_fields = [
+        GraphQLInt("integerblock"),
+        GraphQLFloat("floatblock"),
+        GraphQLFloat("decimalblock"),
+        GraphQLString("regexblock"),
+        GraphQLString("urlblock"),
+        GraphQLBoolean("booleanblock"),
+        GraphQLString("dateblock"),
+    ]
+
+@register_streamfield_block
 class _S_TallBlock(blocks.StructBlock):
     timeblock = blocks.TimeBlock()
     datetimeblock = blocks.DateTimeBlock()
@@ -41,12 +75,31 @@ class _S_TallBlock(blocks.StructBlock):
     ])
     #pagechooserblock = blocks.PageChooserBlock()
 
+    graphql_fields = [
+        GraphQLString("timeblock"),
+        GraphQLString("datetimeblock"),
+        GraphQLString("richtextblock"),
+        GraphQLString("rawhtmlblock"),
+        GraphQLString("blockquoteblock"),
+        GraphQLString("choiceblock"),
+        #GraphQLForeignKey("pagechooserblock", content_type="page"),
+    ]
+
+@register_streamfield_block
 class _S_LightBlock(blocks.StructBlock):
     documentchooserblock = docblocks.DocumentChooserBlock()
     imagechooserblock = ImageChooserBlock()
     snippetchooserblock = SnippetChooserBlock(target_model='utils.Button')
     embedblock = EmbedBlock()
     staticblock = blocks.StaticBlock()
+
+    graphql_fields = [
+        GraphQLDocument("documentchooserblock"),
+        GraphQLImage("imagechooserblock"),
+        GraphQLSnippet("snippetchooserblock", snippet_model="utils.Button"),
+        GraphQLEmbed("embedblock"),
+        GraphQLString("staticblock"),
+    ]
 
 #> Pages
 class HomePage(Page):
@@ -93,6 +146,36 @@ class HomePage(Page):
         ('s_lightblock', _S_LightBlock()),
     ], null=True, blank=False)
 
+    graphql_fields = [
+        #GraphQLInt("autofield"),
+        #GraphQLInt("bigautofield"),
+        GraphQLInt("bigintegerfield"),
+        GraphQLInt("binaryfield"),
+        GraphQLBoolean("booleanfield"),
+        GraphQLString("charfield"),
+        GraphQLString("datefield"),
+        GraphQLString("datetimefield"),
+        GraphQLFloat("decimalfield"),
+        GraphQLString("durationfield"),
+        GraphQLString("emailfield"),
+        #GraphQLGenericScala("filefield"),
+        GraphQLString("filepathfield"),
+        GraphQLFloat("floatfield"),
+        #GraphQLGenericScala("imagefield"),
+        GraphQLInt("integerfield"),
+        GraphQLString("genericipaddressfield"),
+        GraphQLBoolean("nullbooleanfield"),
+        GraphQLInt("positiveintegerfield"),
+        GraphQLString("slugfield"),
+        GraphQLInt("smallintegerfield"),
+        GraphQLString("textfield"),
+        GraphQLString("timefield"),
+        GraphQLString("urlfield"),
+        GraphQLString("uuidfield"),
+        GraphQLStreamfield("sections"),
+        GraphQLInt('positivesmallintegerfield'),
+    ]
+
     main_content_panels = [
         FieldPanel('bigintegerfield'),
         FieldPanel('booleanfield'),
@@ -121,3 +204,6 @@ class HomePage(Page):
     ]
 
     content_panels = Page.content_panels + main_content_panels
+
+# SPDX-License-Identifier: (EUPL-1.2)
+# Copyright © 2019 Werbeagentur Christian Aichner
