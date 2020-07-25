@@ -162,6 +162,7 @@ GRAPHQL_JWT = {
 }
 
 BIFROST_APPS = {
+    "images": "",
 }
 
 #> Password Validation
