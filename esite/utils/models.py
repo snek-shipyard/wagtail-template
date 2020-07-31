@@ -12,16 +12,7 @@ from wagtail.snippets.models import register_snippet
 from esite.utils.cache import get_default_cache_control_decorator
 
 from esite.bifrost.models import (
-    GraphQLInt,
-    GraphQLBoolean,
     GraphQLString,
-    GraphQLFloat,
-    GraphQLImage,
-    GraphQLDocument,
-    GraphQLSnippet,
-    GraphQLEmbed,
-    GraphQLStreamfield,
-    GraphQLForeignKey,
     GraphQLPage,
 )
 

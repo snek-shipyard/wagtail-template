@@ -33,10 +33,6 @@ class ColorField(forms.CharField):
 
 
 class ColorAlphaField(forms.CharField):
-<<<<<<< HEAD
-    # default_validators = [validate_color]
-=======
->>>>>>> master
     widget = ColorAlphaWidget
 
     def __init__(self, *args, **kwargs):
@@ -55,10 +51,6 @@ class ColorAlphaField(forms.CharField):
 
 
 class GradientColorField(forms.CharField):
-<<<<<<< HEAD
-    # default_validators = [validate_colorg]
-=======
->>>>>>> master
     widget = GradientColorWidget
 
     def __init__(self, *args, **kwargs):

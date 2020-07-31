@@ -31,8 +31,6 @@ from esite.bifrost.models import (
     GraphQLSnippet,
     GraphQLEmbed,
     GraphQLStreamfield,
-    GraphQLForeignKey,
-    GraphQLPage,
 )
 from esite.bifrost.helpers import register_streamfield_block
 
@@ -82,7 +80,6 @@ class _S_TallBlock(blocks.StructBlock):
     choiceblock = blocks.ChoiceBlock(
         choices=[("apples", "Apple"), ("bananas", "Bananas"),]
     )
-    # pagechooserblock = blocks.PageChooserBlock()
 
     graphql_fields = [
         GraphQLString("timeblock"),
@@ -91,7 +88,6 @@ class _S_TallBlock(blocks.StructBlock):
         GraphQLString("rawhtmlblock"),
         GraphQLString("blockquoteblock"),
         GraphQLString("choiceblock"),
-        # GraphQLForeignKey("pagechooserblock", content_type="page"),
     ]
 
 

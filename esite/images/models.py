@@ -3,17 +3,9 @@ from django.db import models
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
 
 from esite.bifrost.models import (
-    GraphQLInt,
     GraphQLBoolean,
     GraphQLString,
-    GraphQLFloat,
-    GraphQLImage,
-    GraphQLDocument,
     GraphQLSnippet,
-    GraphQLEmbed,
-    GraphQLStreamfield,
-    GraphQLForeignKey,
-    GraphQLPage,
 )
 
 # We define our own custom image class to replace wagtailimages.Image,
