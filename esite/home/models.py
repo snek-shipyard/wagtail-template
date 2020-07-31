@@ -7,7 +7,15 @@ from wagtail.documents import blocks as docblocks
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
-from wagtail.admin.edit_handlers import StreamFieldPanel, FieldPanel, PageChooserPanel, TabbedInterface, ObjectList, InlinePanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import (
+    StreamFieldPanel,
+    FieldPanel,
+    PageChooserPanel,
+    TabbedInterface,
+    ObjectList,
+    InlinePanel,
+    MultiFieldPanel,
+)
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 
@@ -28,7 +36,7 @@ from esite.bifrost.models import (
 )
 from esite.bifrost.helpers import register_streamfield_block
 
-#> Sections
+# > Sections
 @register_streamfield_block
 class _S_SmallBlock(blocks.StructBlock):
     charblock = blocks.CharBlock()
@@ -47,7 +55,7 @@ class _S_BigBlock(blocks.StructBlock):
     integerblock = blocks.IntegerBlock()
     floatblock = blocks.FloatBlock()
     decimalblock = blocks.DecimalBlock()
-    regexblock = blocks.RegexBlock(regex='')
+    regexblock = blocks.RegexBlock(regex="")
     urlblock = blocks.URLBlock()
     booleanblock = blocks.BooleanBlock()
     dateblock = blocks.DateBlock()
@@ -62,6 +70,7 @@ class _S_BigBlock(blocks.StructBlock):
         GraphQLString("dateblock"),
     ]
 
+
 @register_streamfield_block
 class _S_TallBlock(blocks.StructBlock):
     timeblock = blocks.TimeBlock()
@@ -69,11 +78,10 @@ class _S_TallBlock(blocks.StructBlock):
     richtextblock = blocks.RichTextBlock()
     rawhtmlblock = blocks.RawHTMLBlock()
     blockquoteblock = blocks.BlockQuoteBlock()
-    choiceblock = blocks.ChoiceBlock(choices=[
-        ('apples', 'Apple'),
-        ('bananas', 'Bananas'),
-    ])
-    #pagechooserblock = blocks.PageChooserBlock()
+    choiceblock = blocks.ChoiceBlock(
+        choices=[("apples", "Apple"), ("bananas", "Bananas"),]
+    )
+    # pagechooserblock = blocks.PageChooserBlock()
 
     graphql_fields = [
         GraphQLString("timeblock"),
@@ -82,14 +90,15 @@ class _S_TallBlock(blocks.StructBlock):
         GraphQLString("rawhtmlblock"),
         GraphQLString("blockquoteblock"),
         GraphQLString("choiceblock"),
-        #GraphQLForeignKey("pagechooserblock", content_type="page"),
+        # GraphQLForeignKey("pagechooserblock", content_type="page"),
     ]
+
 
 @register_streamfield_block
 class _S_LightBlock(blocks.StructBlock):
     documentchooserblock = docblocks.DocumentChooserBlock()
     imagechooserblock = ImageChooserBlock()
-    snippetchooserblock = SnippetChooserBlock(target_model='utils.Button')
+    snippetchooserblock = SnippetChooserBlock(target_model="utils.Button")
     embedblock = EmbedBlock()
     staticblock = blocks.StaticBlock()
 
@@ -101,31 +110,34 @@ class _S_LightBlock(blocks.StructBlock):
         GraphQLString("staticblock"),
     ]
 
-#> Pages
+
+# > Pages
 class HomePage(Page):
     # Only allow creating HomePages at the root level
-    parent_page_types = ['wagtailcore.Page']
+    parent_page_types = ["wagtailcore.Page"]
 
-    #autofield = models.AutoField()
-    #bigautofield = models.BigAutoField()
+    # autofield = models.AutoField()
+    # bigautofield = models.BigAutoField()
     bigintegerfield = models.BigIntegerField(blank=False, null=True)
-    #binaryfield = models.BinaryField()
+    # binaryfield = models.BinaryField()
     booleanfield = models.BooleanField(blank=False, null=True)
-    charfield = models.CharField(max_length=22,blank=False, null=True)
+    charfield = models.CharField(max_length=22, blank=False, null=True)
     datefield = models.DateField(blank=False, null=True)
     datetimefield = models.DateTimeField(blank=False, null=True)
-    decimalfield = models.DecimalField(decimal_places=5, max_digits=22,blank=False, null=True)
+    decimalfield = models.DecimalField(
+        decimal_places=5, max_digits=22, blank=False, null=True
+    )
     durationfield = models.DurationField(blank=False, null=True)
     emailfield = models.EmailField(blank=False, null=True)
-    #filefield = models.FileField(blank=False, null=True)
-    #filepathfield = models.FilePathField(blank=False, null=True)
+    # filefield = models.FileField(blank=False, null=True)
+    # filepathfield = models.FilePathField(blank=False, null=True)
     floatfield = models.FloatField(blank=False, null=True)
     imagefield = models.ForeignKey(
         settings.WAGTAILIMAGES_IMAGE_MODEL,
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
+        related_name="+",
     )
     integerfield = models.IntegerField(blank=False, null=True)
     genericipaddressfield = models.GenericIPAddressField(blank=False, null=True)
@@ -139,16 +151,20 @@ class HomePage(Page):
     urlfield = models.URLField(blank=False, null=True)
     uuidfield = models.UUIDField(blank=False, null=True, default=uuid.uuid4)
 
-    sections = fields.StreamField([
-        ('s_smallblock', _S_SmallBlock()),
-        ('s_bigblock', _S_BigBlock()),
-        ('s_tallblock', _S_TallBlock()),
-        ('s_lightblock', _S_LightBlock()),
-    ], null=True, blank=False)
+    sections = fields.StreamField(
+        [
+            ("s_smallblock", _S_SmallBlock()),
+            ("s_bigblock", _S_BigBlock()),
+            ("s_tallblock", _S_TallBlock()),
+            ("s_lightblock", _S_LightBlock()),
+        ],
+        null=True,
+        blank=False,
+    )
 
     graphql_fields = [
-        #GraphQLInt("autofield"),
-        #GraphQLInt("bigautofield"),
+        # GraphQLInt("autofield"),
+        # GraphQLInt("bigautofield"),
         GraphQLInt("bigintegerfield"),
         GraphQLInt("binaryfield"),
         GraphQLBoolean("booleanfield"),
@@ -158,10 +174,10 @@ class HomePage(Page):
         GraphQLFloat("decimalfield"),
         GraphQLString("durationfield"),
         GraphQLString("emailfield"),
-        #GraphQLGenericScala("filefield"),
+        # GraphQLGenericScala("filefield"),
         GraphQLString("filepathfield"),
         GraphQLFloat("floatfield"),
-        #GraphQLGenericScala("imagefield"),
+        # GraphQLGenericScala("imagefield"),
         GraphQLInt("integerfield"),
         GraphQLString("genericipaddressfield"),
         GraphQLBoolean("nullbooleanfield"),
@@ -173,37 +189,38 @@ class HomePage(Page):
         GraphQLString("urlfield"),
         GraphQLString("uuidfield"),
         GraphQLStreamfield("sections"),
-        GraphQLInt('positivesmallintegerfield'),
+        GraphQLInt("positivesmallintegerfield"),
     ]
 
     main_content_panels = [
-        FieldPanel('bigintegerfield'),
-        FieldPanel('booleanfield'),
-        FieldPanel('charfield'),
-        FieldPanel('datefield'),
-        FieldPanel('datetimefield'),
-        FieldPanel('decimalfield'),
-        FieldPanel('durationfield'),
-        FieldPanel('emailfield'),
-        #FieldPanel('filefield'),
-        #FieldPanel('filepathfield'),
-        FieldPanel('floatfield'),
-        ImageChooserPanel('imagefield'),
-        FieldPanel('integerfield'),
-        FieldPanel('genericipaddressfield'),
-        FieldPanel('nullbooleanfield'),
-        FieldPanel('positiveintegerfield'),
-        FieldPanel('positivesmallintegerfield'),
-        FieldPanel('slugfield'),
-        FieldPanel('smallintegerfield'),
-        FieldPanel('textfield'),
-        FieldPanel('timefield'),
-        FieldPanel('urlfield'),
-        FieldPanel('uuidfield'),
-        StreamFieldPanel('sections'),
+        FieldPanel("bigintegerfield"),
+        FieldPanel("booleanfield"),
+        FieldPanel("charfield"),
+        FieldPanel("datefield"),
+        FieldPanel("datetimefield"),
+        FieldPanel("decimalfield"),
+        FieldPanel("durationfield"),
+        FieldPanel("emailfield"),
+        # FieldPanel('filefield'),
+        # FieldPanel('filepathfield'),
+        FieldPanel("floatfield"),
+        ImageChooserPanel("imagefield"),
+        FieldPanel("integerfield"),
+        FieldPanel("genericipaddressfield"),
+        FieldPanel("nullbooleanfield"),
+        FieldPanel("positiveintegerfield"),
+        FieldPanel("positivesmallintegerfield"),
+        FieldPanel("slugfield"),
+        FieldPanel("smallintegerfield"),
+        FieldPanel("textfield"),
+        FieldPanel("timefield"),
+        FieldPanel("urlfield"),
+        FieldPanel("uuidfield"),
+        StreamFieldPanel("sections"),
     ]
 
     content_panels = Page.content_panels + main_content_panels
+
 
 # SPDX-License-Identifier: (EUPL-1.2)
 # Copyright © 2019 Werbeagentur Christian Aichner
