@@ -38,3 +38,7 @@ def get_default_cache_control_decorator():
     """
     cache_control_kwargs = get_default_cache_control_kwargs()
     return cache_control(**cache_control_kwargs)
+
+
+# SPDX-License-Identifier: (EUPL-1.2)
+# Copyright © 2019-2020 Simon Prast

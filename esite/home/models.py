@@ -137,3 +137,7 @@ class HomePage(Page):
     ]
 
     content_panels = Page.content_panels + main_content_panels
+
+
+# SPDX-License-Identifier: (EUPL-1.2)
+# Copyright © 2019-2020 Simon Prast

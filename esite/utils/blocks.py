@@ -49,3 +49,7 @@ class StoryBlock(blocks.StreamBlock):
 
     class Meta:
         template = "patterns/molecules/streamfield/stream_block.html"
+
+
+# SPDX-License-Identifier: (EUPL-1.2)
+# Copyright © 2019-2020 Simon Prast

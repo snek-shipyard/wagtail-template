@@ -112,4 +112,4 @@ if "RECAPTCHA_PUBLIC_KEY" in env and "RECAPTCHA_PRIVATE_KEY" in env:
     RECAPTCHA_PRIVATE_KEY = env["RECAPTCHA_PRIVATE_KEY"]
 
 # SPDX-License-Identifier: (EUPL-1.2)
-# Copyright © 2019 Werbeagentur Christian Aichner
+# Copyright © 2019-2020 Simon Prast
