@@ -260,8 +260,10 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
 DEFAULT_PER_PAGE = 10
 
 # > Styleguide
-PATTERN_LIBRARY_ENABLED = "true"
-PATTERN_LIBRARY_TEMPLATE_DIR = "templates"
+PATTERN_LIBRARY_ENABLED = True
+PATTERN_LIBRARY_TEMPLATE_DIR = os.path.join(PROJECT_DIR, 'project_styleguide', 'templates')
+
+PASSWORD_REQUIRED_TEMPLATE = "patterns/pages/wagtail/password_required.html"
 
 # > System Checks
 # Wagtail forms not used so silence captcha warning
