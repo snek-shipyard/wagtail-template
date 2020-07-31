@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import re
 
 from django import forms
@@ -13,9 +11,6 @@ from .widgets import ColorWidget, ColorAlphaWidget, GradientColorWidget
 
 color_re = re.compile("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$")
 validate_color = RegexValidator(color_re, _("Enter a valid color."), "invalid")
-
-# color_reg = re.compile('^to\s?(\bbottom|\bright|\btop left|\btop right|\btop)\s#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$')
-# validate_colorg = RegexValidator(color_reg, _('Enter a valid gradient color.'), 'invalid')
 
 
 class ColorField(forms.CharField):
@@ -33,13 +28,15 @@ class ColorField(forms.CharField):
     def prepare_value(self, value):
         if isinstance(value, str):
             return value
-        # return str(value)
         # or should it be
         return self.prepare_value(str(value))
 
 
 class ColorAlphaField(forms.CharField):
+<<<<<<< HEAD
     # default_validators = [validate_color]
+=======
+>>>>>>> master
     widget = ColorAlphaWidget
 
     def __init__(self, *args, **kwargs):
@@ -53,13 +50,15 @@ class ColorAlphaField(forms.CharField):
     def prepare_value(self, value):
         if isinstance(value, str):
             return value
-        # return str(value)
         # or should it be
         return self.prepare_value(str(value))
 
 
 class GradientColorField(forms.CharField):
+<<<<<<< HEAD
     # default_validators = [validate_colorg]
+=======
+>>>>>>> master
     widget = GradientColorWidget
 
     def __init__(self, *args, **kwargs):
@@ -73,10 +72,9 @@ class GradientColorField(forms.CharField):
     def prepare_value(self, value):
         if isinstance(value, str):
             return value
-        # return str(value)
         # or should it be
         return self.prepare_value(str(value))
 
 
 # SPDX-License-Identifier: (EUPL-1.2)
-# Copyright © 2019 Werbeagentur Christian Aichner
+# Copyright © 2019-2020 Simon Prast

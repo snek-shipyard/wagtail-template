@@ -22,23 +22,14 @@ class UserAdmin(ModelAdmin):
     search_fields = ("date_joined", "username", "email")
 
 
-# modeladmin_register(UserAdmin)
-
-
 class CustomerAdminB(ModelAdminGroup):
     menu_label = "User Management"
     menu_icon = "group"
     menu_order = 110
     add_to_settings_menu = False
     exclude_from_explorer = False
-    items = (
-        UserAdmin,
-        # CustomerAdmin,
-        # RegistrationAdmin
-    )
+    items = (UserAdmin,)
 
-
-# modeladmin_register(CustomerAdminB)
 
 # SPDX-License-Identifier: (EUPL-1.2)
-# Copyright © 2019 Werbeagentur Christian Aichner
+# Copyright © 2019-2020 Simon Prast

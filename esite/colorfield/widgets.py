@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import re
 
 from django import forms
@@ -111,4 +109,4 @@ class GradientColorWidget(forms.Widget):
 
 
 # SPDX-License-Identifier: (EUPL-1.2)
-# Copyright © 2019 Werbeagentur Christian Aichner
+# Copyright © 2019-2020 Simon Prast

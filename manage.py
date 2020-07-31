@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
@@ -22,4 +21,4 @@ if __name__ == "__main__":
     main()
 
 # SPDX-License-Identifier: (EUPL-1.2)
-# Copyright © 2019 Werbeagentur Christian Aichner
+# Copyright © 2019-2020 Simon Prast

@@ -284,3 +284,7 @@ class Button(models.Model):
 
     def __str__(self):
         return self.button_title
+
+
+# SPDX-License-Identifier: (EUPL-1.2)
+# Copyright © 2019-2020 Simon Prast

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/stable/ref/settings/
 import os
 from datetime import timedelta
 
+env = os.environ.copy()
 
 # > Root Paths
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -245,7 +246,6 @@ WAGTAILSEARCH_BACKENDS = {
 # Custom document model
 # https://docs.wagtail.io/en/stable/advanced_topics/documents/custom_document_model.html
 WAGTAILDOCS_DOCUMENT_MODEL = "documents.CustomDocument"
-# PASSWORD_REQUIRED_TEMPLATE = "patterns/pages/wagtail/password_required.html"
 
 # Custom image model
 # https://docs.wagtail.io/en/stable/advanced_topics/images/custom_image_model.html
@@ -291,11 +291,16 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
 DEFAULT_PER_PAGE = 10
 
 # > Styleguide
-PATTERN_LIBRARY_ENABLED = "true"
-PATTERN_LIBRARY_TEMPLATE_DIR = "templates"
+PATTERN_LIBRARY_ENABLED = True
+PATTERN_LIBRARY_TEMPLATE_DIR = os.path.join(
+    PROJECT_DIR, "project_styleguide", "templates"
+)
+
+PASSWORD_REQUIRED_TEMPLATE = "patterns/pages/wagtail/password_required.html"
 
 # > System Checks
 # Wagtail forms not used so silence captcha warning
 SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
+
 # SPDX-License-Identifier: (EUPL-1.2)
-# Copyright © 2019 Werbeagentur Christian Aichner
+# Copyright © 2019-2020 Simon Prast
