@@ -19,7 +19,7 @@ import dj_database_url
 from .base import *
 
 
-#> Debug Switch
+# > Debug Switch
 # SECURITY WARNING: don't run with debug turned on in production!
 # IMPORTANT: Specified in the environment or set to default (off).
 # See https://docs.djangoproject.com/en/stable/ref/settings/#debug
@@ -30,7 +30,7 @@ DEBUG = env.get("DJANGO_DEBUG", "off") == "on"
 if "PRIMARY_HOST" in env:
     BASE_URL = "https://{}".format(env["PRIMARY_HOST"])
 
-#> Secret Key
+# > Secret Key
 # SECURITY WARNING: keep the secret key used in production secret!
 # IMPORTANT: Specified in the environment or generate an ephemeral key.
 # See https://docs.djangoproject.com/en/stable/ref/settings/#secret-key
@@ -46,13 +46,13 @@ else:
         [random.SystemRandom().choice(string.printable) for i in range(50)]
     )
 
-#> Allowed Hosts
+# > Allowed Hosts
 # Accept all hostnames, since we don't know in advance
 # which hostname will be used for any given Docker instance.
 # IMPORTANT: Set this to a real hostname when using this in production!
 # See https://docs.djangoproject.com/en/stable/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = env.get("DJANGO_ALLOWED_HOSTS", "*").split(";")
-#> Email Settings
+# > Email Settings
 # We use SMTP to send emails. We typically use transactional email services
 # that let us use SMTP.
 # https://docs.djangoproject.com/en/2.1/topics/email/
@@ -96,14 +96,14 @@ if "DJANGO_EMAIL_SUBJECT_PREFIX" in env:
 if "DJANGO_SERVER_EMAIL" in env:
     SERVER_EMAIL = DEFAULT_FROM_EMAIL = env["DJANGO_SERVER_EMAIL"]
 
-#> Database Configuration
+# > Database Configuration
 # See https://pypi.org/project/dj-database-url/
 # See https://docs.djangoproject.com/en/stable/ref/settings/#databases
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES["default"].update(db_from_env)
 
 
-#> Recaptcha
+# > Recaptcha
 # These settings are required for the captcha challange to work.
 # https://github.com/springload/wagtail-django-recaptcha
 if "RECAPTCHA_PUBLIC_KEY" in env and "RECAPTCHA_PRIVATE_KEY" in env:

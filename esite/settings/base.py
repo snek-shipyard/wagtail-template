@@ -11,12 +11,12 @@ https://docs.djangoproject.com/en/stable/ref/settings/
 import os
 
 
-#> Root Paths
+# > Root Paths
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-#> Application Definition
+# > Application Definition
 # A list of strings designating all applications that are enabled in this
 # Django installation.
 # See https://docs.djangoproject.com/en/stable/ref/settings/#installed-apps
@@ -67,7 +67,7 @@ INSTALLED_APPS = [
     "pattern_library",
 ]
 
-#> Middleware Definition
+# > Middleware Definition
 # In MIDDLEWARE, each middleware component is represented by a string: the full
 # Python path to the middleware factory’s class or function name.
 # https://docs.djangoproject.com/en/stable/ref/settings/#middleware
@@ -90,7 +90,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "esite.urls"
 
-#> Template Configuration
+# > Template Configuration
 # A list containing the settings for all template engines to be used with
 # Django.
 # See https://docs.djangoproject.com/en/stable/ref/settings/#templates
@@ -115,23 +115,23 @@ TEMPLATES = [
     },
 ]
 
-#> CORS Origin
+# > CORS Origin
 # If True, the whitelist will not be used and all origins will be accepted.
 # See https://pypi.org/project/django-cors-headers/
 CORS_ORIGIN_ALLOW_ALL = True
 
-#> URL Configuration
+# > URL Configuration
 # A string representing the full Python import path to your root URL configuration.
 # See https://docs.djangoproject.com/en/stable/ref/settings/#root-urlconf
 ROOT_URLCONF = "esite.urls"
 
-#> WSGI Application Path
+# > WSGI Application Path
 # The full Python path of the WSGI application object that Django’s built-in
 # servers (e.g. runserver) will use.
 # See https://docs.djangoproject.com/en/stable/ref/settings/#wsgi-application
 WSGI_APPLICATION = "esite.wsgi.application"
 
-#> Database Configuration
+# > Database Configuration
 # This setting will use DATABASE_URL environment variable.
 # https://docs.djangoproject.com/en/stable/ref/settings/#databases
 # https://github.com/kennethreitz/dj-database-url
@@ -142,11 +142,13 @@ DATABASES = {
     }
 }
 
-#> Password Validation
+# > Password Validation
 # The list of validators that are used to check the strength of passwords, see
 # https://docs.djangoproject.com/en/stable/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
-    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",},
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    },
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
@@ -155,7 +157,7 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_USER_MODEL = "user.User"
 # AUTH_PROFILE_MODULE = "avatar.Avatar"
 
-#> Internationalization
+# > Internationalization
 # https://docs.djangoproject.com/en/stable/topics/i18n/
 LANGUAGE_CODE = "en-us"
 
@@ -167,7 +169,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-#> Staticfile Directory
+# > Staticfile Directory
 # This is where Django will look for static files outside the directories of
 # applications which are used by default.
 # https://docs.djangoproject.com/en/stable/ref/settings/#staticfiles-dirs
@@ -198,11 +200,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/stable/ref/settings/#media-url
 MEDIA_URL = "/media/"
 
-#> Wagtail Settings
+# > Wagtail Settings
 # This name is displayed in the Wagtail admin.
 WAGTAIL_SITE_NAME = "esite"
 
-#> Search Configuration
+# > Search Configuration
 # https://docs.wagtail.io/en/latest/topics/search/backends.html
 WAGTAILSEARCH_BACKENDS = {
     "default": {"BACKEND": "wagtail.search.backends.db", "INDEX": "esite",},
@@ -211,7 +213,7 @@ WAGTAILSEARCH_BACKENDS = {
 # Custom document model
 # https://docs.wagtail.io/en/stable/advanced_topics/documents/custom_document_model.html
 WAGTAILDOCS_DOCUMENT_MODEL = "documents.CustomDocument"
-#PASSWORD_REQUIRED_TEMPLATE = "patterns/pages/wagtail/password_required.html"
+# PASSWORD_REQUIRED_TEMPLATE = "patterns/pages/wagtail/password_required.html"
 
 # Custom image model
 # https://docs.wagtail.io/en/stable/advanced_topics/images/custom_image_model.html
@@ -256,11 +258,11 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
 # Default size of the pagination used on the front-end
 DEFAULT_PER_PAGE = 10
 
-#> Styleguide
+# > Styleguide
 PATTERN_LIBRARY_ENABLED = "true"
 PATTERN_LIBRARY_TEMPLATE_DIR = "templates"
 
-#> System Checks
+# > System Checks
 # Wagtail forms not used so silence captcha warning
 SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
 # SPDX-License-Identifier: (EUPL-1.2)
