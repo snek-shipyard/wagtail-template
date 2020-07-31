@@ -29,19 +29,7 @@ def secondarynav(context):
     }
 
 
-# Footer nav snippets
-"""
-@register.inclusion_tag('patterns/molecules/navigation/footernav.html', takes_context=True)
-def footernav(context):
-    request = context['request']
-    return {
-        'footernav': NavigationSettings.for_site(request.site).footer_navigation,
-        'request': request,
-    }
-"""
-
-
-# Footer nav snippets
+# Sidebar nav snippets
 @register.inclusion_tag(
     "patterns/molecules/navigation/sidebar.html", takes_context=True
 )
@@ -52,7 +40,7 @@ def sidebar(context):
     }
 
 
-# Footer nav snippets
+# Footer links nav snippets
 @register.inclusion_tag(
     "patterns/molecules/navigation/footerlinks.html", takes_context=True
 )
@@ -64,6 +52,7 @@ def footerlinks(context):
     }
 
 
+# Footer bottom nav snippets
 @register.inclusion_tag(
     "patterns/molecules/navigation/footerbottomtext.html", takes_context=True
 )

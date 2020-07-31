@@ -47,7 +47,6 @@ class _S_TallBlock(blocks.StructBlock):
     choiceblock = blocks.ChoiceBlock(
         choices=[("apples", "Apple"), ("bananas", "Bananas"),]
     )
-    # pagechooserblock = blocks.PageChooserBlock()
 
 
 class _S_LightBlock(blocks.StructBlock):
@@ -63,10 +62,7 @@ class HomePage(Page):
     # Only allow creating HomePages at the root level
     parent_page_types = ["wagtailcore.Page"]
 
-    # autofield = models.AutoField()
-    # bigautofield = models.BigAutoField()
     bigintegerfield = models.BigIntegerField(blank=False, null=True)
-    # binaryfield = models.BinaryField()
     booleanfield = models.BooleanField(blank=False, null=True)
     charfield = models.CharField(max_length=22, blank=False, null=True)
     datefield = models.DateField(blank=False, null=True)
@@ -76,8 +72,6 @@ class HomePage(Page):
     )
     durationfield = models.DurationField(blank=False, null=True)
     emailfield = models.EmailField(blank=False, null=True)
-    # filefield = models.FileField(blank=False, null=True)
-    # filepathfield = models.FilePathField(blank=False, null=True)
     floatfield = models.FloatField(blank=False, null=True)
     imagefield = models.ForeignKey(
         settings.WAGTAILIMAGES_IMAGE_MODEL,
@@ -118,8 +112,6 @@ class HomePage(Page):
         FieldPanel("decimalfield"),
         FieldPanel("durationfield"),
         FieldPanel("emailfield"),
-        # FieldPanel('filefield'),
-        # FieldPanel('filepathfield'),
         FieldPanel("floatfield"),
         ImageChooserPanel("imagefield"),
         FieldPanel("integerfield"),
