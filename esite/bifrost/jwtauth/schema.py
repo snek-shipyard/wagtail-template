@@ -15,11 +15,6 @@ from esite.bifrost.permissions import with_page_permissions, with_collection_per
 
 # Create your registration related graphql schemes here.
 
-# class UserType(DjangoObjectType):
-#    class Meta:
-#        model = User
-#        exclude_fields = ['password']
-
 
 class ObtainJSONWebToken(graphql_jwt.JSONWebTokenMutation):
 
