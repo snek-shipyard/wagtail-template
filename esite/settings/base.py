@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/stable/ref/settings/
 
 import os
 
+env = os.environ.copy()
 
 # > Root Paths
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
