@@ -2,6 +2,12 @@ from django.db import models
 
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
 
+from esite.bifrost.models import (
+    GraphQLBoolean,
+    GraphQLString,
+    GraphQLSnippet,
+)
+
 # We define our own custom image class to replace wagtailimages.Image,
 # providing various additional data fields
 class CustomImage(AbstractImage):
@@ -22,6 +28,13 @@ class CustomImage(AbstractImage):
         "license",
         "image_source_url",
     )
+
+    graphql_fields = [
+        GraphQLSnippet("license", snippet_model="utils.Button"),
+        GraphQLString("description"),
+        GraphQLString("author"),
+        GraphQLBoolean("image_source_url"),
+    ]
 
 
 class Rendition(AbstractRendition):

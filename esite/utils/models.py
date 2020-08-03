@@ -11,6 +11,11 @@ from wagtail.snippets.models import register_snippet
 
 from esite.utils.cache import get_default_cache_control_decorator
 
+from esite.bifrost.models import (
+    GraphQLString,
+    GraphQLPage,
+)
+
 
 class LinkFields(models.Model):
     """
@@ -253,6 +258,13 @@ class Button(models.Model):
         on_delete=models.SET_NULL,
         related_name="+",
     )
+
+    graphql_fields = [
+        GraphQLString("button_title"),
+        GraphQLString("button_embed"),
+        GraphQLString("button_link"),
+        GraphQLPage("button_page"),
+    ]
 
     panels = [
         FieldPanel("button_title"),

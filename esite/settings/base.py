@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/stable/ref/settings/
 """
 
 import os
+from datetime import timedelta
 
 env = os.environ.copy()
 
@@ -25,6 +26,7 @@ INSTALLED_APPS = [
     # Our own pages
     "esite.home",
     # Our own apps
+    "esite.bifrost",
     "esite.core",
     "esite.user",
     "esite.colorfield",
@@ -64,6 +66,9 @@ INSTALLED_APPS = [
     "captcha",
     "generic_chooser",
     "wagtailcaptcha",
+    "graphene_django",
+    "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
+    "channels",
     "wagtailfontawesome",
     "pattern_library",
 ]
@@ -143,6 +148,27 @@ DATABASES = {
     }
 }
 
+# > Graphene Configuration
+GRAPHENE = {
+    "SCHEMA": "esite.bifrost.schema.schema",
+    "MIDDLEWARE": ["graphql_jwt.middleware.JSONWebTokenMiddleware",],
+}
+
+GRAPHQL_JWT = {
+    "JWT_ALLOW_ARGUMENT": True,
+    "JWT_VERIFY_EXPIRATION": True,
+    "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
+    "JWT_EXPIRATION_DELTA": timedelta(minutes=5),
+    "JWT_REFRESH_EXPIRATION_DELTA": timedelta(days=7),
+}
+
+BIFROST_APPS = {
+    "home": "",
+    "utils": "",
+    "documents": "",
+    "images": "",
+}
+
 # > Password Validation
 # The list of validators that are used to check the strength of passwords, see
 # https://docs.djangoproject.com/en/stable/ref/settings/#auth-password-validators
@@ -157,6 +183,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = "user.User"
 # AUTH_PROFILE_MODULE = "avatar.Avatar"
+
+# > Authentication Backend
+AUTHENTICATION_BACKENDS = [
+    "graphql_jwt.backends.JSONWebTokenBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
 
 # > Internationalization
 # https://docs.djangoproject.com/en/stable/topics/i18n/
@@ -214,7 +246,6 @@ WAGTAILSEARCH_BACKENDS = {
 # Custom document model
 # https://docs.wagtail.io/en/stable/advanced_topics/documents/custom_document_model.html
 WAGTAILDOCS_DOCUMENT_MODEL = "documents.CustomDocument"
-# PASSWORD_REQUIRED_TEMPLATE = "patterns/pages/wagtail/password_required.html"
 
 # Custom image model
 # https://docs.wagtail.io/en/stable/advanced_topics/images/custom_image_model.html
@@ -261,7 +292,9 @@ DEFAULT_PER_PAGE = 10
 
 # > Styleguide
 PATTERN_LIBRARY_ENABLED = True
-PATTERN_LIBRARY_TEMPLATE_DIR = os.path.join(PROJECT_DIR, 'project_styleguide', 'templates')
+PATTERN_LIBRARY_TEMPLATE_DIR = os.path.join(
+    PROJECT_DIR, "project_styleguide", "templates"
+)
 
 PASSWORD_REQUIRED_TEMPLATE = "patterns/pages/wagtail/password_required.html"
 
