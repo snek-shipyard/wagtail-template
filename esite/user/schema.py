@@ -10,19 +10,13 @@ from graphql_jwt.decorators import (
     superuser_required,
 )
 
-from esite.user.models import User
+from esite.bifrost.registry import registry
 
 # Create your registration related graphql schemes here.
 
 
-class UserType(DjangoObjectType):
-    class Meta:
-        model = User
-        exclude_fields = ["password"]
-
-
 class CreateUser(graphene.Mutation):
-    user = graphene.Field(UserType)
+    user = graphene.Field(registry.models[get_user_model()])
 
     class Arguments:
         username = graphene.String(required=True)
@@ -44,13 +38,42 @@ class Mutation(graphene.ObjectType):
 
 
 class Query(graphene.ObjectType):
-    me = graphene.Field(UserType, token=graphene.String(required=False))
-    users = graphene.List(UserType, token=graphene.String(required=False))
+    user_exists = graphene.Boolean(
+        token=graphene.String(required=True), username=graphene.String(required=True),
+    )
 
-    @superuser_required
-    def resolve_users(self, info, **_kwargs):
+    me = graphene.Field(
+        registry.models[get_user_model()], token=graphene.String(required=False)
+    )
+    # user = graphene.Field(
+    #     registry.models[get_user_model()],
+    #     username=graphene.String(required=False),
+    #     token=graphene.String(required=False),
+    # )
+    # users = graphene.List(
+    #     registry.models[get_user_model()], token=graphene.String(required=False)
+    # )
 
-        return User.objects.all()
+    @login_required
+    def resolve_user_exists(self, info, token, username, **kwargs):
+        try:
+            user = get_user_model().objects.get(username=username)
+            return True
+        except get_user_model().DoesNotExist:
+            return False
+
+    # @superuser_required
+    # def resolve_users(self, info, **_kwargs):
+
+    #     return get_user_model().objects.all()
+
+    # @login_required
+    # def resolve_user(self, info, username, **_kwargs):
+    #     print(username)
+    #     user = get_user_model().objects.get(username=username)
+    #     print(user.__dict__)
+
+    #     return user
 
     @login_required
     def resolve_me(self, info, **_kwargs):

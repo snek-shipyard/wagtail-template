@@ -28,9 +28,10 @@ from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 
 from esite.bifrost import urls as api_urls
-
 from esite.utils.cache import get_default_cache_control_decorator
 from esite.utils.views import favicon, robots
+
+# from esite.search import views as search_views
 
 
 # Private URLs are not meant to be cached.
@@ -39,6 +40,8 @@ private_urlpatterns = [
     path("django-admin/", admin.site.urls),
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
+    # Search cache-control headers are set on the view itself.
+    # path('search/', search_views.search, name='search'),
 ]
 
 
@@ -79,6 +82,9 @@ if getattr(settings, "PATTERN_LIBRARY_ENABLED", False) and apps.is_installed(
         path("pattern-library/", include("pattern_library.urls")),
     ]
 
+
+# Set public URLs to use the "default" cache settings.
+urlpatterns = decorate_urlpatterns(urlpatterns, get_default_cache_control_decorator())
 
 # Set vary header to instruct cache to serve different version on different
 # cookies, different request method (e.g. AJAX) and different protocol

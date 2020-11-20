@@ -2,15 +2,12 @@ from django.db import models
 
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
 
-from esite.bifrost.models import (
-    GraphQLBoolean,
-    GraphQLString,
-    GraphQLSnippet,
-)
+from esite.bifrost.models import GraphQLBoolean, GraphQLSnippet, GraphQLString
+
 
 # We define our own custom image class to replace wagtailimages.Image,
 # providing various additional data fields
-class CustomImage(AbstractImage):
+class SNEKImage(AbstractImage):
     license = models.ForeignKey(
         "utils.LicenseSnippet",
         null=True,
@@ -37,9 +34,17 @@ class CustomImage(AbstractImage):
     ]
 
 
+class SNEKPersonAvatarImage(AbstractImage):
+    pass
+
+
+class SNEKAchievementImage(AbstractImage):
+    pass
+
+
 class Rendition(AbstractRendition):
     image = models.ForeignKey(
-        "CustomImage", related_name="renditions", on_delete=models.CASCADE
+        "SNEKImage", related_name="renditions", on_delete=models.CASCADE
     )
 
     class Meta:

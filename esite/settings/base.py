@@ -23,17 +23,17 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Django installation.
 # See https://docs.djangoproject.com/en/stable/ref/settings/#installed-apps
 INSTALLED_APPS = [
-    # Our own pages
-    "esite.home",
     # Our own apps
     "esite.bifrost",
     "esite.core",
+    "esite.utils",
     "esite.user",
-    "esite.colorfield",
     "esite.documents",
     "esite.images",
     "esite.navigation",
-    "esite.utils",
+    "esite.search",
+    # Our own pages
+    "esite.home",
     # Django core apps
     "django.contrib.admin",
     "django.contrib.auth",
@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     "channels",
     "wagtailfontawesome",
     "pattern_library",
+    "esite.project_styleguide.apps.ProjectStyleguideConfig",
 ]
 
 # > Middleware Definition
@@ -167,6 +168,9 @@ BIFROST_APPS = {
     "utils": "",
     "documents": "",
     "images": "",
+    "user": "",
+    "navigation": "",
+    "utils": "",
 }
 
 # > Password Validation
@@ -181,7 +185,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
-AUTH_USER_MODEL = "user.User"
+AUTH_USER_MODEL = "user.SNEKUser"
 # AUTH_PROFILE_MODULE = "avatar.Avatar"
 
 # > Authentication Backend
@@ -245,11 +249,11 @@ WAGTAILSEARCH_BACKENDS = {
 
 # Custom document model
 # https://docs.wagtail.io/en/stable/advanced_topics/documents/custom_document_model.html
-WAGTAILDOCS_DOCUMENT_MODEL = "documents.CustomDocument"
+WAGTAILDOCS_DOCUMENT_MODEL = "documents.SNEKDocument"
 
 # Custom image model
 # https://docs.wagtail.io/en/stable/advanced_topics/images/custom_image_model.html
-WAGTAILIMAGES_IMAGE_MODEL = "images.CustomImage"
+WAGTAILIMAGES_IMAGE_MODEL = "images.SNEKImage"
 WAGTAILIMAGES_FEATURE_DETECTION_ENABLED = False
 
 # Rich text settings to remove unneeded features
@@ -290,6 +294,9 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
 # Default size of the pagination used on the front-end
 DEFAULT_PER_PAGE = 10
 
+# The number of GET/POST parameters
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 999999999999999
+
 # > Styleguide
 PATTERN_LIBRARY_ENABLED = True
 PATTERN_LIBRARY_TEMPLATE_DIR = os.path.join(
@@ -301,6 +308,11 @@ PASSWORD_REQUIRED_TEMPLATE = "patterns/pages/wagtail/password_required.html"
 # > System Checks
 # Wagtail forms not used so silence captcha warning
 SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
+
+# > WAGTAIL_ALLOW_UNICODE_SLUGS Checks
+# Set this to False to limit slugs to ASCII characters.
+# Ref:https://docs.wagtail.io/en/stable/advanced_topics/settings.html#unicode-page-slugs
+WAGTAIL_ALLOW_UNICODE_SLUGS = True
 
 # SPDX-License-Identifier: (EUPL-1.2)
 # Copyright © 2019-2020 Simon Prast
