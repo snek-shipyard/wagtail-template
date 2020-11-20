@@ -45,14 +45,6 @@ class Query(graphene.ObjectType):
     me = graphene.Field(
         registry.models[get_user_model()], token=graphene.String(required=False)
     )
-    # user = graphene.Field(
-    #     registry.models[get_user_model()],
-    #     username=graphene.String(required=False),
-    #     token=graphene.String(required=False),
-    # )
-    # users = graphene.List(
-    #     registry.models[get_user_model()], token=graphene.String(required=False)
-    # )
 
     @login_required
     def resolve_user_exists(self, info, token, username, **kwargs):
