@@ -1,31 +1,46 @@
 import json
 import uuid
+
 import django.contrib.auth.validators
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
-from django.core.serializers.json import DjangoJSONEncoder
 from django.core.mail import send_mail
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
+
+from modelcluster.models import ClusterableModel
 from wagtail.admin.edit_handlers import (
     FieldPanel,
     FieldRowPanel,
     InlinePanel,
     MultiFieldPanel,
-)
-from wagtail.core.fields import StreamField, RichTextField
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.admin.edit_handlers import (
-    TabbedInterface,
     ObjectList,
-    InlinePanel,
     StreamFieldPanel,
-    MultiFieldPanel,
-    FieldPanel,
+    TabbedInterface,
+)
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+
+from esite.bifrost.helpers import register_streamfield_block
+from esite.bifrost.models import (
+    GraphQLBoolean,
+    GraphQLCollection,
+    GraphQLEmbed,
+    GraphQLField,
+    GraphQLForeignKey,
+    GraphQLImage,
+    GraphQLSnippet,
+    GraphQLStreamfield,
+    GraphQLString,
 )
 
+# from esite.utils.models import BasePage
+
+
 # Extend AbstractUser Model from django.contrib.auth.models
-class User(AbstractUser):
+class SNEKUser(AbstractUser, ClusterableModel):
     username = models.CharField(
+        "username",
         null=True,
         blank=False,
         error_messages={"unique": "A user with that username already exists."},
@@ -33,17 +48,14 @@ class User(AbstractUser):
         max_length=36,
         unique=True,
         validators=[django.contrib.auth.validators.UnicodeUsernameValidator()],
-        verbose_name="username",
     )
-    is_customer = models.BooleanField(blank=False, default=False)
-    registration_data = models.TextField(null=True, blank=False)
 
     # Custom save function
     def save(self, *args, **kwargs):
         if not self.username:
             self.username = str(uuid.uuid4())
 
-        if not self.registration_data or self.is_customer:
+        if not self.is_staff:
             if not self.is_active:
                 self.is_active = True
 
@@ -58,12 +70,23 @@ class User(AbstractUser):
         else:
             self.is_active = False
 
-        super(User, self).save(*args, **kwargs)
+        super(SNEKUser, self).save(*args, **kwargs)
 
     panels = [
         FieldPanel("username"),
-        FieldPanel("is_customer"),
-        FieldPanel("registration_data"),
+        FieldPanel("first_name"),
+        FieldPanel("last_name"),
+        FieldPanel("email"),
+        FieldPanel("is_staff"),
+        FieldPanel("is_active"),
+    ]
+
+    graphql_fields = [
+        GraphQLString("username"),
+        GraphQLString("first_name"),
+        GraphQLString("last_name"),
+        GraphQLString("email"),
+        GraphQLBoolean("is_active"),
     ]
 
     def __str__(self):

@@ -23,17 +23,17 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Django installation.
 # See https://docs.djangoproject.com/en/stable/ref/settings/#installed-apps
 INSTALLED_APPS = [
-    # Our own pages
-    "esite.home",
     # Our own apps
     "esite.bifrost",
     "esite.core",
+    "esite.utils",
     "esite.user",
-    "esite.colorfield",
     "esite.documents",
     "esite.images",
     "esite.navigation",
-    "esite.utils",
+    "esite.search",
+    # Our own pages
+    "esite.home",
     # Django core apps
     "django.contrib.admin",
     "django.contrib.auth",
@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     "channels",
     "wagtailfontawesome",
     "pattern_library",
+    "esite.project_styleguide.apps.ProjectStyleguideConfig",
 ]
 
 # > Middleware Definition
@@ -103,7 +104,7 @@ ROOT_URLCONF = "esite.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(PROJECT_DIR, "templates"),],
+        "DIRS": [os.path.join(PROJECT_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -118,7 +119,7 @@ TEMPLATES = [
             ],
             "builtins": ["pattern_library.loader_tags"],
         },
-    },
+    }
 ]
 
 # > CORS Origin
@@ -151,7 +152,7 @@ DATABASES = {
 # > Graphene Configuration
 GRAPHENE = {
     "SCHEMA": "esite.bifrost.schema.schema",
-    "MIDDLEWARE": ["graphql_jwt.middleware.JSONWebTokenMiddleware",],
+    "MIDDLEWARE": ["graphql_jwt.middleware.JSONWebTokenMiddleware"],
 }
 
 GRAPHQL_JWT = {
@@ -167,6 +168,9 @@ BIFROST_APPS = {
     "utils": "",
     "documents": "",
     "images": "",
+    "user": "",
+    "navigation": "",
+    "utils": "",
 }
 
 # > Password Validation
@@ -174,14 +178,14 @@ BIFROST_APPS = {
 # https://docs.djangoproject.com/en/stable/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-AUTH_USER_MODEL = "user.User"
+AUTH_USER_MODEL = "user.SNEKUser"
 # AUTH_PROFILE_MODULE = "avatar.Avatar"
 
 # > Authentication Backend
@@ -206,9 +210,7 @@ USE_TZ = True
 # This is where Django will look for static files outside the directories of
 # applications which are used by default.
 # https://docs.djangoproject.com/en/stable/ref/settings/#staticfiles-dirs
-STATICFILES_DIRS = [
-    os.path.join(PROJECT_DIR, "static"),
-]
+STATICFILES_DIRS = [os.path.join(PROJECT_DIR, "static")]
 
 # This is where Django will put files collected from application directories
 # and custom direcotires set in "STATICFILES_DIRS" when
@@ -240,16 +242,16 @@ WAGTAIL_SITE_NAME = "esite"
 # > Search Configuration
 # https://docs.wagtail.io/en/latest/topics/search/backends.html
 WAGTAILSEARCH_BACKENDS = {
-    "default": {"BACKEND": "wagtail.search.backends.db", "INDEX": "esite",},
+    "default": {"BACKEND": "wagtail.search.backends.db", "INDEX": "esite"}
 }
 
 # Custom document model
 # https://docs.wagtail.io/en/stable/advanced_topics/documents/custom_document_model.html
-WAGTAILDOCS_DOCUMENT_MODEL = "documents.CustomDocument"
+WAGTAILDOCS_DOCUMENT_MODEL = "documents.SNEKDocument"
 
 # Custom image model
 # https://docs.wagtail.io/en/stable/advanced_topics/images/custom_image_model.html
-WAGTAILIMAGES_IMAGE_MODEL = "images.CustomImage"
+WAGTAILIMAGES_IMAGE_MODEL = "images.SNEKImage"
 WAGTAILIMAGES_FEATURE_DETECTION_ENABLED = False
 
 # Rich text settings to remove unneeded features
@@ -284,11 +286,14 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
                 "code",
             ]
         },
-    },
+    }
 }
 
 # Default size of the pagination used on the front-end
 DEFAULT_PER_PAGE = 10
+
+# The number of GET/POST parameters
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 999999999999999
 
 # > Styleguide
 PATTERN_LIBRARY_ENABLED = True
@@ -301,6 +306,11 @@ PASSWORD_REQUIRED_TEMPLATE = "patterns/pages/wagtail/password_required.html"
 # > System Checks
 # Wagtail forms not used so silence captcha warning
 SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
+
+# > WAGTAIL_ALLOW_UNICODE_SLUGS Checks
+# Set this to False to limit slugs to ASCII characters.
+# Ref:https://docs.wagtail.io/en/stable/advanced_topics/settings.html#unicode-page-slugs
+WAGTAIL_ALLOW_UNICODE_SLUGS = True
 
 # SPDX-License-Identifier: (EUPL-1.2)
 # Copyright © 2019-2020 Simon Prast

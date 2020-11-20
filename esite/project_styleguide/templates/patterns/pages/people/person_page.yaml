@@ -5,7 +5,7 @@ context:
     last_name: Doe
     photo: fake
     job_title: Stub person
-    esite: "https://example.com"
+    website: "https://example.com"
     email: "test@example.com"
     social_media_profile:
       all:
