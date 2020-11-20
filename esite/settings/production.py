@@ -191,7 +191,7 @@ if "FRONTEND_CACHE_CLOUDFLARE_TOKEN" in env:
             "EMAIL": env["FRONTEND_CACHE_CLOUDFLARE_EMAIL"],
             "TOKEN": env["FRONTEND_CACHE_CLOUDFLARE_TOKEN"],
             "ZONEID": env["FRONTEND_CACHE_CLOUDFLARE_ZONEID"],
-        },
+        }
     }
 
 # > Logging
@@ -224,8 +224,8 @@ LOGGING = {
         }
     },
     "loggers": {
-        "esite": {"handlers": ["console"], "level": "INFO", "propagate": False,},
-        "wagtail": {"handlers": ["console"], "level": "INFO", "propagate": False,},
+        "esite": {"handlers": ["console"], "level": "INFO", "propagate": False},
+        "wagtail": {"handlers": ["console"], "level": "INFO", "propagate": False},
         "django.request": {
             "handlers": ["console"],
             "level": "WARNING",
@@ -242,7 +242,7 @@ LOGGING = {
 # Add embeds for streamfield.
 if "EMBEDLY_API_KEY" in env:
     WAGTAILEMBEDS_FINDERS = [
-        {"class": "wagtail.embeds.finders.embedly", "key": env["EMBEDLY_API_KEY"],}
+        {"class": "wagtail.embeds.finders.embedly", "key": env["EMBEDLY_API_KEY"]}
     ]
 
 # MIDDLEWARE.append('django_referrer_policy.middleware.ReferrerPolicyMiddleware')
@@ -284,4 +284,4 @@ if "RECAPTCHA_PUBLIC_KEY" in env and "RECAPTCHA_PRIVATE_KEY" in env:
     RECAPTCHA_PRIVATE_KEY = env["RECAPTCHA_PRIVATE_KEY"]
 
 # SPDX-License-Identifier: (EUPL-1.2)
-# Copyright © 2019 Werbeagentur Christian Aichner
+# Copyright © 2019-2020 Simon Prast

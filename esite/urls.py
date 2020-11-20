@@ -78,9 +78,7 @@ if settings.DEBUG:
 if getattr(settings, "PATTERN_LIBRARY_ENABLED", False) and apps.is_installed(
     "pattern_library"
 ):
-    private_urlpatterns += [
-        path("pattern-library/", include("pattern_library.urls")),
-    ]
+    private_urlpatterns += [path("pattern-library/", include("pattern_library.urls"))]
 
 
 # Set public URLs to use the "default" cache settings.
@@ -103,7 +101,7 @@ urlpatterns = (
     + [
         # Add Wagtail URLs at the end.
         # Wagtail cache-control is set on the page models's serve methods.
-        path("", include(wagtail_urls)),
+        path("", include(wagtail_urls))
     ]
 )
 

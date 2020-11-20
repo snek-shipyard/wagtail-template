@@ -14,7 +14,7 @@ def favicon(request):
 
 
 def robots(request):
-    content = "\n".join(["User-Agent: *", "Disallow: /search/", "Allow: /",])
+    content = "\n".join(["User-Agent: *", "Disallow: /search/", "Allow: /"])
     return HttpResponse(content, content_type="text/plain")
 
 

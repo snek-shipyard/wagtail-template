@@ -25,7 +25,7 @@ class CreateUser(graphene.Mutation):
 
     @superuser_required
     def mutate(self, info, username, password, email):
-        user = get_user_model()(username=username, email=email,)
+        user = get_user_model()(username=username, email=email)
 
         user.set_password(password)
         user.save()
@@ -39,7 +39,7 @@ class Mutation(graphene.ObjectType):
 
 class Query(graphene.ObjectType):
     user_exists = graphene.Boolean(
-        token=graphene.String(required=True), username=graphene.String(required=True),
+        token=graphene.String(required=True), username=graphene.String(required=True)
     )
 
     me = graphene.Field(

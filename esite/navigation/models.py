@@ -18,10 +18,10 @@ class LinkBlock(blocks.StructBlock):
 @register_setting(icon="list-ul")
 class NavigationSettings(BaseSetting, ClusterableModel):
     primary_navigation = StreamField(
-        [("link", LinkBlock()),], blank=True, help_text="Main site navigation"
+        [("link", LinkBlock())], blank=True, help_text="Main site navigation"
     )
     footer_links = StreamField(
-        [("link", LinkBlock()),],
+        [("link", LinkBlock())],
         blank=True,
         help_text="Single list of elements at the base of the page.",
     )

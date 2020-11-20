@@ -15,8 +15,8 @@ class SNEKImage(AbstractImage):
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    description = models.TextField(blank=True, max_length=165,)
-    author = models.CharField(blank=True, max_length=165, null=True,)
+    description = models.TextField(blank=True, max_length=165)
+    author = models.CharField(blank=True, max_length=165, null=True)
     image_source_url = models.URLField(blank=True)
 
     admin_form_fields = Image.admin_form_fields + (

@@ -6,10 +6,10 @@ from wagtail.contrib.modeladmin.options import (
     modeladmin_register,
 )
 
-#from esite.enterprises.admin import EnterpriseAdmin
-#from esite.people.admin import PersonAdmin
-#from esite.profile.admin import ProfileAdmin
-#from esite.registration.admin import RegistrationAdmin
+# from esite.enterprises.admin import EnterpriseAdmin
+# from esite.people.admin import PersonAdmin
+# from esite.profile.admin import ProfileAdmin
+# from esite.registration.admin import RegistrationAdmin
 
 # Register your user related models here.
 
@@ -33,7 +33,8 @@ class UserManagementAdmin(ModelAdminGroup):
     menu_order = 110
     add_to_settings_menu = False
     exclude_from_explorer = False
-    #items = (ProfileAdmin, PersonAdmin, EnterpriseAdmin, RegistrationAdmin)
+    # items = (ProfileAdmin, PersonAdmin, EnterpriseAdmin, RegistrationAdmin)
+
 
 modeladmin_register(UserManagementAdmin)
 

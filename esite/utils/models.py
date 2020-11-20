@@ -74,7 +74,7 @@ class LinkFields(models.Model):
                 {
                     "link_text": ValidationError(
                         "You must specify link text, if you use the link url field."
-                    ),
+                    )
                 }
             )
 
@@ -101,7 +101,7 @@ class LinkFields(models.Model):
                 FieldPanel("link_text"),
             ],
             "Link",
-        ),
+        )
     ]
 
 
@@ -119,9 +119,7 @@ class RelatedPage(Orderable, models.Model):
         abstract = True
         ordering = ["sort_order"]
 
-    panels = [
-        PageChooserPanel("page"),
-    ]
+    panels = [PageChooserPanel("page")]
 
 
 # Generic social fields abstract class to add social image/text to any new content type easily.
@@ -140,9 +138,9 @@ class SocialFields(models.Model):
 
     promote_panels = [
         MultiFieldPanel(
-            [ImageChooserPanel("social_image"), FieldPanel("social_text"),],
+            [ImageChooserPanel("social_image"), FieldPanel("social_text")],
             "Social networks",
-        ),
+        )
     ]
 
 
@@ -179,7 +177,7 @@ class ListingFields(models.Model):
                 FieldPanel("listing_summary"),
             ],
             "Listing information",
-        ),
+        )
     ]
 
 
@@ -191,7 +189,7 @@ class SocialMediaSettings(BaseSetting):
         help_text="Your Twitter username without the @, e.g. katyperry",
     )
     facebook_app_id = models.CharField(
-        max_length=255, blank=True, help_text="Your Facebook app ID.",
+        max_length=255, blank=True, help_text="Your Facebook app ID."
     )
     default_sharing_text = models.CharField(
         max_length=255,
@@ -211,14 +209,14 @@ class SystemMessagesSettings(BaseSetting):
     class Meta:
         verbose_name = "system messages"
 
-    title_404 = models.CharField("Title", max_length=255, default="Page not found",)
+    title_404 = models.CharField("Title", max_length=255, default="Page not found")
     body_404 = RichTextField(
         "Text",
         default="<p>You may be trying to find a page that doesn&rsquo;t exist or has been moved.</p>",
     )
 
     panels = [
-        MultiFieldPanel([FieldPanel("title_404"), FieldPanel("body_404"),], "404 page"),
+        MultiFieldPanel([FieldPanel("title_404"), FieldPanel("body_404")], "404 page")
     ]
 
 
@@ -281,11 +279,7 @@ class LicenseSnippet(models.Model):
     version = models.TextField(blank=True)
     url = models.URLField(blank=True, max_length=255)
 
-    panels = [
-        FieldPanel("title"),
-        FieldPanel("description"),
-        FieldPanel("url"),
-    ]
+    panels = [FieldPanel("title"), FieldPanel("description"), FieldPanel("url")]
 
     def __str__(self):
         return self.title

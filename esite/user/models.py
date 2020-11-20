@@ -49,7 +49,7 @@ class SNEKUser(AbstractUser, ClusterableModel):
         unique=True,
         validators=[django.contrib.auth.validators.UnicodeUsernameValidator()],
     )
-    #is_enterprise = models.BooleanField("enterprise", blank=False, default=False)
+    # is_enterprise = models.BooleanField("enterprise", blank=False, default=False)
 
     # Custom save function
     def save(self, *args, **kwargs):
@@ -80,9 +80,9 @@ class SNEKUser(AbstractUser, ClusterableModel):
         FieldPanel("email"),
         FieldPanel("is_staff"),
         FieldPanel("is_active"),
-        #FieldPanel("is_enterprise"),
-        #FieldPanel("sources"),
-        #FieldPanel("cache"),
+        # FieldPanel("is_enterprise"),
+        # FieldPanel("sources"),
+        # FieldPanel("cache"),
     ]
 
     graphql_fields = [
@@ -91,13 +91,13 @@ class SNEKUser(AbstractUser, ClusterableModel):
         GraphQLString("last_name"),
         GraphQLString("email"),
         GraphQLBoolean("is_active"),
-        #GraphQLBoolean("is_enterprise"),
-        #GraphQLString("sources"),
-        #GraphQLString("cache"),
-        #GraphQLCollection(GraphQLForeignKey, "person", "people.Person"),
-        #GraphQLCollection(GraphQLForeignKey, "enterprise", "enterprises.Enterprise"),
-        #GraphQLCollection(GraphQLForeignKey, "talk_owner", "talk.Talk"),
-        #GraphQLCollection(GraphQLForeignKey, "comment_owner", "comment.Comment"),
+        # GraphQLBoolean("is_enterprise"),
+        # GraphQLString("sources"),
+        # GraphQLString("cache"),
+        # GraphQLCollection(GraphQLForeignKey, "person", "people.Person"),
+        # GraphQLCollection(GraphQLForeignKey, "enterprise", "enterprises.Enterprise"),
+        # GraphQLCollection(GraphQLForeignKey, "talk_owner", "talk.Talk"),
+        # GraphQLCollection(GraphQLForeignKey, "comment_owner", "comment.Comment"),
     ]
 
     def __str__(self):

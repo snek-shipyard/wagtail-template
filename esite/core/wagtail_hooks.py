@@ -26,4 +26,4 @@ def global_admin_js():
 #    menu_items[:] = [item for item in menu_items if item.name != 'reports']
 
 # SPDX-License-Identifier: (EUPL-1.2)
-# Copyright © 2019 Werbeagentur Christian Aichner
+# Copyright © 2019-2020 Simon Prast

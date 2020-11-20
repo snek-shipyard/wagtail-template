@@ -265,7 +265,7 @@ class HomePage(BasePage):
         ),
         StreamFieldPanel("sociallinks"),
         MultiFieldPanel(
-            [FieldPanel("about"), FieldPanel("privacy")], heading="privacy",
+            [FieldPanel("about"), FieldPanel("privacy")], heading="privacy"
         ),
     ]
 

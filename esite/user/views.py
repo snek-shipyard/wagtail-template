@@ -11,13 +11,7 @@ from generic_chooser.views import ModelChooserViewSet
 class UserForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = [
-            "username",
-            "first_name",
-            "last_name",
-            "email",
-            "is_staff",
-        ]
+        fields = ["username", "first_name", "last_name", "email", "is_staff"]
 
 
 class UserChooserViewSet(ModelChooserViewSet):
