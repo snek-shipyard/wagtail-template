@@ -74,11 +74,21 @@ class SNEKUser(AbstractUser, ClusterableModel):
 
     panels = [
         FieldPanel("username"),
-        FieldPanel("first_name"),
-        FieldPanel("last_name"),
-        FieldPanel("email"),
-        FieldPanel("is_staff"),
-        FieldPanel("is_active"),
+        MultiFieldPanel(
+            [
+                FieldPanel("first_name"),
+                FieldPanel("last_name"),
+                FieldPanel("email"),
+            ],
+            "Information",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("is_staff"),
+                FieldPanel("is_active"),
+            ],
+            "Settings",
+        ),
     ]
 
     graphql_fields = [
