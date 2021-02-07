@@ -10,7 +10,7 @@ from graphql_jwt.decorators import (
     superuser_required,
 )
 
-from esite.bifrost.registry import registry
+from bifrost.registry import registry
 
 
 class Query(graphene.ObjectType):

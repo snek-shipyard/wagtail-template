@@ -1,40 +1,11 @@
-import json
-import uuid
 
 import django.contrib.auth.validators
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
-from django.core.mail import send_mail
-from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
-
 from modelcluster.models import ClusterableModel
-from wagtail.admin.edit_handlers import (
-    FieldPanel,
-    FieldRowPanel,
-    InlinePanel,
-    MultiFieldPanel,
-    ObjectList,
-    StreamFieldPanel,
-    TabbedInterface,
-)
-from wagtail.core.fields import RichTextField, StreamField
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 
-from esite.bifrost.helpers import register_streamfield_block
-from esite.bifrost.models import (
-    GraphQLBoolean,
-    GraphQLCollection,
-    GraphQLEmbed,
-    GraphQLField,
-    GraphQLForeignKey,
-    GraphQLImage,
-    GraphQLSnippet,
-    GraphQLStreamfield,
-    GraphQLString,
-)
-
-# from esite.utils.models import BasePage
+from bifrost.models import GraphQLBoolean, GraphqlDatetime, GraphQLString
 
 
 # Extend AbstractUser Model from django.contrib.auth.models
@@ -49,42 +20,33 @@ class SNEKUser(AbstractUser, ClusterableModel):
         unique=True,
         validators=[django.contrib.auth.validators.UnicodeUsernameValidator()],
     )
-
-    # Custom save function
-    def save(self, *args, **kwargs):
-        if not self.username:
-            self.username = str(uuid.uuid4())
-
-        if not self.is_staff:
-            if not self.is_active:
-                self.is_active = True
-
-                send_mail(
-                    "got activated",
-                    "You got activated.",
-                    "noreply@snek.at",
-                    [self.email],
-                    fail_silently=False,
-                )
-
-        else:
-            self.is_active = False
-
-        super(SNEKUser, self).save(*args, **kwargs)
+    birthdate = models.DateField(
+        auto_now=False, auto_now_add=False, null=True, blank=False
+    )
+    telephone = models.CharField(null=False, blank=False, max_length=40)
+    address = models.CharField(null=True, blank=True, max_length=60)
+    city = models.CharField(null=True, blank=True, max_length=60)
+    postal_code = models.CharField(null=True, blank=True, max_length=12)
+    country = models.CharField(null=True, blank=True, max_length=2)
 
     panels = [
-        FieldPanel("username"),
         MultiFieldPanel(
             [
+                FieldPanel("username"),
                 FieldPanel("first_name"),
                 FieldPanel("last_name"),
                 FieldPanel("email"),
+                FieldPanel("birthdate"),
+                FieldPanel("telephone"),
+                FieldPanel("address"),
+                FieldPanel("city"),
+                FieldPanel("postal_code"),
+                FieldPanel("country"),
             ],
-            "Information",
+            "Details",
         ),
         MultiFieldPanel(
             [
-                FieldPanel("is_staff"),
                 FieldPanel("is_active"),
             ],
             "Settings",
@@ -96,12 +58,21 @@ class SNEKUser(AbstractUser, ClusterableModel):
         GraphQLString("first_name"),
         GraphQLString("last_name"),
         GraphQLString("email"),
+        GraphqlDatetime("birthdate"),
+        GraphQLString("telephone"),
+        GraphQLString("address"),
+        GraphQLString("city"),
+        GraphQLString("postal_code"),
+        GraphQLString("country"),
         GraphQLBoolean("is_active"),
     ]
 
-    def __str__(self):
-        return self.username
+    # Custom save function
+    def save(self, *args, **kwargs):
+        super(SNEKUser, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return f"{self.username}"
 
 # SPDX-License-Identifier: (EUPL-1.2)
-# Copyright © 2019-2020 Simon Prast
+# Copyright © 2021 Nico Schett
