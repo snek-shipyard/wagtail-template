@@ -3,6 +3,7 @@
 .env
 
 # Django environments
+venv/
 linux-venv/
 windows-venv/
 

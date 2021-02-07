@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/stable/ref/settings/
 """
 
 import os
-from datetime import timedelta
 
 env = os.environ.copy()
 
@@ -24,7 +23,6 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # See https://docs.djangoproject.com/en/stable/ref/settings/#installed-apps
 INSTALLED_APPS = [
     # Our own apps
-    "esite.bifrost",
     "esite.core",
     "esite.utils",
     "esite.user",
@@ -60,6 +58,7 @@ INSTALLED_APPS = [
     "wagtail.admin",
     "wagtail.core",
     # Third party apps
+    "bifrost",
     "corsheaders",
     "django_filters",
     "modelcluster",
@@ -152,16 +151,7 @@ DATABASES = {
 
 # > Graphene Configuration
 GRAPHENE = {
-    "SCHEMA": "esite.bifrost.schema.schema",
-    "MIDDLEWARE": ["graphql_jwt.middleware.JSONWebTokenMiddleware"],
-}
-
-GRAPHQL_JWT = {
-    "JWT_ALLOW_ARGUMENT": True,
-    "JWT_VERIFY_EXPIRATION": True,
-    "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
-    "JWT_EXPIRATION_DELTA": timedelta(minutes=5),
-    "JWT_REFRESH_EXPIRATION_DELTA": timedelta(days=7),
+    "SCHEMA": "bifrost.schema.schema",
 }
 
 BIFROST_APPS = {
@@ -175,6 +165,14 @@ BIFROST_APPS = {
 }
 
 BIFROST_ADD_SEARCH_HIT = True
+
+ASGI_APPLICATION = "bifrost.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
 
 # > Password Validation
 # The list of validators that are used to check the strength of passwords, see

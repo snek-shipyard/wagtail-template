@@ -16,7 +16,7 @@ from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 
-from esite.bifrost.models import GraphQLPage, GraphQLString
+from bifrost.models import GraphQLPage, GraphQLString
 from esite.utils.cache import get_default_cache_control_decorator
 
 

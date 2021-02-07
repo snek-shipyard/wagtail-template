@@ -27,7 +27,7 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 
-from esite.bifrost import urls as api_urls
+from bifrost import urls as api_urls
 from esite.utils.cache import get_default_cache_control_decorator
 from esite.utils.views import favicon, robots
 

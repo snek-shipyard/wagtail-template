@@ -22,7 +22,7 @@ from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
-from esite.bifrost.models import GraphQLField, GraphQLStreamfield, GraphQLString
+from bifrost.models import GraphQLField, GraphQLStreamfield, GraphQLString
 from esite.colorfield.blocks import ColorAlphaBlock, ColorBlock, GradientColorBlock
 from esite.colorfield.fields import ColorAlphaField, ColorField
 from esite.utils.models import BasePage
