@@ -1,11 +1,9 @@
-
 import django.contrib.auth.validators
+from bifrost.models import GraphQLBoolean, GraphqlDatetime, GraphQLString
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from modelcluster.models import ClusterableModel
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
-
-from bifrost.models import GraphQLBoolean, GraphqlDatetime, GraphQLString
 
 
 # Extend AbstractUser Model from django.contrib.auth.models
@@ -73,6 +71,7 @@ class SNEKUser(AbstractUser, ClusterableModel):
 
     def __str__(self):
         return f"{self.username}"
+
 
 # SPDX-License-Identifier: (EUPL-1.2)
 # Copyright © 2021 Nico Schett

@@ -1,7 +1,4 @@
-from django.db import models
-from django.shortcuts import render
 from django.template.loader import render_to_string
-
 from wagtail.core.blocks import FieldBlock
 
 from .forms import ColorAlphaField, ColorField, GradientColorField

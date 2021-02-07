@@ -1,7 +1,5 @@
-from django.forms.utils import pretty_name
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
-
 from wagtail.admin.edit_handlers import EditHandler
 
 

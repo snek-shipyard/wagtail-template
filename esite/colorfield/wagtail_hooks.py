@@ -1,6 +1,5 @@
 from django.templatetags.static import static
-from django.utils.html import format_html, format_html_join
-
+from django.utils.html import format_html_join
 from wagtail.core import hooks
 
 
