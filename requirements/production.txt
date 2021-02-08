@@ -1,5 +1,6 @@
 -r base.txt
 # Additional dependencies for Docker deployment
+django-cache-url==3.2.2
 dj-database-url==0.5.0
 uWSGI==2.0.18
 psycopg2==2.8.3
