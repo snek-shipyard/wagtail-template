@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "windows-venv\\Scripts\\python.exe",
+    "python.pythonPath": ".venv/bin/python",
     "editor.rulers": [80,120],
     "editor.fontFamily": "Fira Code, Consolas, 'Courier New', monospace",
     "editor.fontLigatures": true,
