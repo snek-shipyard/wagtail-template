@@ -1,6 +1,5 @@
 from django.templatetags.static import static
 from django.utils.html import format_html
-
 from wagtail.core import hooks
 
 
@@ -14,6 +13,7 @@ def global_admin_css():
 def global_admin_js():
     # Add /static/css/custom.css to admin.
     return format_html('<script src="{}"></script>', static("core/custom.js"))
+
 
 # SPDX-License-Identifier: (EUPL-1.2)
 # Copyright © 2019-2020 Simon Prast

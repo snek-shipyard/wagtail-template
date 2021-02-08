@@ -17,7 +17,7 @@ import string
 import dj_database_url
 import django_cache_url
 
-from .base import *
+from .base import *  # noqa
 
 # > Debug Switch
 # SECURITY WARNING: don't run with debug turned on in production!

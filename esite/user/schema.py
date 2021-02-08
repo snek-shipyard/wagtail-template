@@ -1,16 +1,7 @@
-from django.contrib.auth import get_user_model
-
 import graphene
-from graphene_django import DjangoObjectType
-from graphql import GraphQLError
-from graphql_jwt.decorators import (
-    login_required,
-    permission_required,
-    staff_member_required,
-    superuser_required,
-)
-
-from esite.bifrost.registry import registry
+from bifrost.registry import registry
+from django.contrib.auth import get_user_model
+from graphql_jwt.decorators import login_required
 
 
 class Query(graphene.ObjectType):
