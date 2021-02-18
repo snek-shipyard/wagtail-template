@@ -132,12 +132,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 # See https://docs.djangoproject.com/en/stable/ref/settings/#root-urlconf
 ROOT_URLCONF = "esite.urls"
 
-# > WSGI Application Path
-# The full Python path of the WSGI application object that Django’s built-in
-# servers (e.g. runserver) will use.
-# See https://docs.djangoproject.com/en/stable/ref/settings/#wsgi-application
-WSGI_APPLICATION = "esite.wsgi.application"
-
 # > Database Configuration
 # This setting will use DATABASE_URL environment variable.
 # https://docs.djangoproject.com/en/stable/ref/settings/#databases
