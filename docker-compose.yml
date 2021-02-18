@@ -15,7 +15,7 @@ services:
     app:
         build:
             context: .
-            dockerfile: Docker/ASGI/Dockerfile
+            dockerfile: Docker/Dockerfile
         environment:
             - "DJANGO_SECRET_KEY=changeme"
             - "DATABASE_URL=postgres://app_user:changeme@db/app_db"
@@ -27,4 +27,4 @@ services:
             - "db"
 
 # SPDX-License-Identifier: (EUPL-1.2)
-# Copyright © 2019-2020 Simon Prast
+# Copyright © 2021 Nico Schett
