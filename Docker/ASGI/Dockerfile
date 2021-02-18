@@ -1,4 +1,4 @@
-FROM python:3.7-alpine
+FROM python:3.9-slim
 
 LABEL description="This container serves as an entry point for our future Django projects."
 
@@ -24,46 +24,46 @@ WORKDIR /code/
 ADD requirements/ /requirements/
 
 # Update, install and cleaning:
-RUN echo "## Installing base ##" && \
-	echo "@main http://dl-cdn.alpinelinux.org/alpine/edge/main/" >> /etc/apk/repositories && \
-	echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing/" >> /etc/apk/repositories && \
-	echo "@community http://dl-cdn.alpinelinux.org/alpine/edge/community/" >> /etc/apk/repositories && \
-	apk upgrade --update-cache --available && \
-	\
-    apk add --no-cache --virtual .build-deps \
-        gcc \
-        g++ \
-        make \
-        libc-dev \
-        musl-dev \
-        linux-headers \
-        pcre-dev \
-        postgresql-dev \
-        libjpeg-turbo-dev \
-        zlib-dev \
-        expat-dev \
-	;\
-    apk add --force \
-		git@main \
-		bash@main \
-		libjpeg-turbo@main \
-		pcre@main \
-		postgresql-client@main \
-        tini@community \
-	\
-	&& python -m venv /venv \
-	&& /venv/bin/pip install -U pip \
-	&& LIBRARY_PATH=/lib:/usr/lib /bin/sh -c "/venv/bin/pip install -r /requirements/production.txt" \
-	&& runDeps="$( \
-	    scanelf --needed --nobanner --recursive /venv \
-	        | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
-	        | sort -u \
-	        | xargs -r apk info --installed \
-	        | sort -u \
-	)" \
-	&& apk add --virtual .python-rundeps $runDeps \
-	&& apk del .build-deps \
-	&& rm -rf /tmp/* /var/tmp/* /var/cache/apk/* /var/cache/distfiles/*
+ADD requirements/ /requirements/
+RUN set -ex \
+    && BUILD_DEPS=" \
+        build-essential \
+        git \
+        libexpat1-dev \
+        libjpeg62-turbo-dev \
+        libpcre3-dev \
+        libpq-dev \
+        zlib1g-dev \
+		libffi-dev \
+		tini \
+
+    " \
+    && apt-get update && apt-get install -y --no-install-recommends $BUILD_DEPS \
+    && python3 -m venv /venv \
+    && /venv/bin/pip install -U pip \
+    && /venv/bin/pip install --no-cache-dir -r /requirements/production.txt \
+    && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $BUILD_DEPS \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install packages needed to run your application (not build deps):
+# We need to recreate the /usr/share/man/man{1..8} directories first because
+# they were clobbered by a parent image.
+RUN set -ex \
+	&& RUN_DEPS=" \
+		libexpat1 \
+		libjpeg62-turbo \
+		libpcre3 \
+		libpq5 \
+		mime-support \
+		postgresql-client \
+		procps \
+		zlib1g \
+	" \
+	&& seq 1 8 | xargs -I{} mkdir -p /usr/share/man/man{} \
+	&& apt-get update && apt-get install -y --no-install-recommends $RUN_DEPS \
+	&& rm -rf /var/lib/apt/lists/*
+
+#RUN which tini
 
 EXPOSE 8000
 
@@ -75,7 +75,6 @@ ADD . /code/
 # make sure venv files can be used by uWSGI process:
 RUN mv /code/docker-entrypoint.sh / ;\
     chmod +x /docker-entrypoint.sh ;\
-    find /venv/ -type f -iname "*.py" -exec chmod -v +x {} ;\
     \
     # Call collectstatic with dummy environment variables:
     DATABASE_URL=postgres://none REDIS_URL=none /venv/bin/python manage.py collectstatic --noinput
@@ -83,7 +82,7 @@ RUN mv /code/docker-entrypoint.sh / ;\
 # I personally like to start my containers with tini
 # which start uWSGI, using a wrapper script to allow us to easily add
 # more commands to container startup:
-ENTRYPOINT ["/sbin/tini", "--", "/docker-entrypoint.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
 
 CMD ["$ASGI_VIRTUALENV/bin/daphne", \
 		"--verbosity", $ASGI_VERBOSITY, \

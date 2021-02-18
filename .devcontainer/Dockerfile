@@ -77,7 +77,7 @@ ENV UWSGI_VIRTUALENV=/venv \
 
 # Place init, make it executable and
 # make sure venv files can be used by uWSGI process:
-ADD docker-entrypoint.sh /docker-entrypoint.sh
+ADD .devcontainer/docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
 # Call collectstatic with dummy environment variables:
